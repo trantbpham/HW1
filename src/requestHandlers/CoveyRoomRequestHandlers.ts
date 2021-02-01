@@ -1,6 +1,6 @@
 import assert from 'assert';
 import { Socket } from 'socket.io';
-import CoveyRoomController from '../lib/CoveyRoomController';
+// import CoveyRoomController from '../lib/CoveyRoomController';
 import Player from '../types/Player';
 import { UserLocation } from '../CoveyTypes';
 import CoveyRoomListener from '../types/CoveyRoomListener';
@@ -43,7 +43,9 @@ export interface RoomJoinResponse {
  * @param requestData an object representing the player's request
  */
 export async function roomJoinHandler(requestData: RoomJoinRequest): Promise<RoomJoinResponse> {
-  const coveyRoomController = CoveyRoomsStore.getInstance().getControllerForRoom(requestData.coveyRoomID);
+  const coveyRoomController = CoveyRoomsStore.getInstance().getControllerForRoom(
+    requestData.coveyRoomID,
+  );
   const newPlayer = new Player(requestData.userName);
   const newSession = await coveyRoomController.addPlayer(newPlayer);
   assert(newSession.videoToken);
